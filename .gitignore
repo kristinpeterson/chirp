@@ -17,6 +17,9 @@
 # Ignore database.yml file for security reasons
 config/database.yml
 
+# Ignore bundler_stubs (trying to avoid bundle exec cmd)
+bundler_stubs/
+
 # Ignore other unneeded files.
 vendor/bundle
 doc/
