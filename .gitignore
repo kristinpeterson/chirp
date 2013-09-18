@@ -14,6 +14,9 @@
 /log/*.log
 /tmp
 
+# Ignore database.yml file for security reasons
+config/database.yml
+
 # Ignore other unneeded files.
 vendor/bundle
 doc/
