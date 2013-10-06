@@ -60,6 +60,7 @@ module SampleApp
     config.assets.version = '1.0'
 
     # added cause heroku said so: https://devcenter.heroku.com/articles/rails-asset-pipeline#troubleshooting
-    config.assets.initialize_on_precompile = false
+    # commenting this out because of issues with bootstrapp -> heroku
+    # config.assets.initialize_on_precompile = false
   end
 end
