@@ -61,6 +61,6 @@ module SampleApp
 
     # added cause heroku said so: https://devcenter.heroku.com/articles/rails-asset-pipeline#troubleshooting
     # commenting this out because of issues with bootstrapp -> heroku
-    # config.assets.initialize_on_precompile = false
+     config.assets.initialize_on_precompile = false
   end
 end
