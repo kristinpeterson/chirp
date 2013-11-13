@@ -42,10 +42,15 @@ describe "User pages" do
         end
 
         it { should have_link('delete', href: user_path(User.first)) }
+        it { should_not have_link('delete', href: user_path(admin)) }
+
+        it "should not be able to delete themselves" do
+          expect { delete user_path(admin) }.not_to change(User, :count)
+        end
+
         it "should be able to delete another user" do
           expect { click_link('delete') }.to change(User, :count).by(-1)
         end
-        it { should_not have_link('delete', href: user_path(admin)) }
       end
     end
   end
@@ -54,21 +59,23 @@ describe "User pages" do
     before { visit signup_path }
 
     it { should have_heading('Sign up') }
-    it { should have_title(full_title('Sign up')) }
+    it { should have_title('Sign up') }
   end
 
   describe "profile page" do
-  # Code to make a user variable
-  let(:user) { FactoryGirl.create(:user) }
-  before { visit user_path(user) }
+    let(:user) { FactoryGirl.create(:user) }
+    before { visit user_path(user) }
 
-  it { should have_heading(user.name) }
-  it { should have_title(user.name) }
+    it { should have_heading(user.name) }
+    it { should have_title(user.name) }
 	end
 
 	describe "signup" do
 
-    before { visit signup_path }
+    before do
+      visit signup_path
+      render_template :partial => "_fields.html.erb"
+    end
 
     let(:submit) { "Create my account" }
 
@@ -108,6 +115,7 @@ describe "User pages" do
     before do
       sign_in user
       visit edit_user_path(user)
+      render_template :partial => "_fields.html.erb"
     end
 
     describe "page" do

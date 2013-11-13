@@ -31,6 +31,7 @@ group :assets do
 end
 
 group :test do
+  gem 'shoulda-matchers', '2.4.0' # awesome gem to add useful matchers
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails', '4.1.0'
   gem 'cucumber-rails', '1.2.1', :require => false

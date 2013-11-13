@@ -39,6 +39,10 @@ describe User do
     it { should be_admin }
   end
 
+  describe "admin attribute" do
+    it { should_not allow_mass_assignment_of :admin }
+  end
+
   # Name tests
 
   describe "when name is not present" do

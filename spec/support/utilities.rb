@@ -19,7 +19,7 @@ def generate_valid_user()
   fill_in "Name",         with: "Example User"
   fill_in "Email",        with: "user@example.com"
   fill_in "Password",     with: "foobar"
-  fill_in "Confirmation", with: "foobar"
+  fill_in "Confirm Password", with: "foobar"
 end
 
 RSpec::Matchers.define :have_error_message do |message|
@@ -36,7 +36,7 @@ end
 
 RSpec::Matchers.define :have_title do |message|
   match do |page|
-    page.should have_selector('title', text: message)
+    page.should have_selector('title', text: full_title(message))
   end
 end
 
