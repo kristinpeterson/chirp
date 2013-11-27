@@ -1,7 +1,10 @@
 <%= form_for(@micropost) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <%= f.text_area :content, placeholder: "Compose new micropost...", :autofocus => true, :id => "micropost_content", onkeyup: "countChars(this)" %>
   </div>
-  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+	<div class="clearfix">
+		<%= f.submit "Post", class: "btn btn-small btn-primary pull-right" %>
+		<span id="char_count" class="muted pull-right inline">140</span>
+	</div>
 <% end %>
