@@ -2,10 +2,7 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
+      <%= render :partial => 'shared/user_info', :locals => { :user => @user, :show_subheading => false}  %>
     </section>
     <section>
       <%= render 'shared/stats' %>

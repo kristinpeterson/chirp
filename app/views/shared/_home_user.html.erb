@@ -1,7 +1,7 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <%= render 'shared/user_info' %>
+      <%= render :partial => 'shared/user_info', :locals => { :user => current_user, :show_subheading => true}  %>
     </section>
     <section>
       <%= render 'shared/stats' %>

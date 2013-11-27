@@ -172,12 +172,14 @@ describe User do
       @user.microposts.should == [newer_micropost, older_micropost]
     end
 
-    it "should destroy associated microposts" do
-      microposts = @user.microposts.dup
-      @user.destroy
-      microposts.should_not be_empty
-      microposts.each do |micropost|
-        Micropost.find_by_id(micropost.id).should be_nil
+    describe "destroying a user" do
+      it "should destroy associated microposts" do
+        microposts = @user.microposts.dup
+        @user.destroy
+        microposts.should_not be_empty
+        microposts.each do |micropost|
+          Micropost.find_by_id(micropost.id).should be_nil
+        end
       end
     end
 
@@ -226,6 +228,17 @@ describe User do
       it { should_not be_following(other_user) }
       its(:followed_users) { should_not include(other_user) }
     end
+
+    describe "destroying a user" do
+      it "should destroy associated relationships" do
+        relationships = @user.relationships.dup
+        @user.destroy
+        relationships.should_not be_empty
+        relationships.each do |relationship|
+          Relationship.find_by_id(relationship.id).should be_nil
+      end
+    end
+  end
   end
 
 end

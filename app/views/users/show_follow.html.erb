@@ -2,10 +2,7 @@
 <div class="row">
   <aside class="span4">
     <section>
-      <%= gravatar_for @user %>
-      <h1><%= @user.name %></h1>
-      <span><%= link_to "view my profile", @user %></span>
-      <span><b>Microposts:</b> <%= @user.microposts.count %></span>
+      <%= render :partial => 'shared/user_info', :locals => { :user => @user, :show_subheading => true}  %>
     </section>
     <section>
       <%= render 'shared/stats' %>
