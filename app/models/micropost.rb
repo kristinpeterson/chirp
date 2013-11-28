@@ -7,6 +7,11 @@ class Micropost < ActiveRecord::Base
   # alternatively *note* these are rails 3.2 compatible, different for rails 4.0+
   # default_scope order("created_at DESC")
 
+  def self.search(terms = "")
+      sanitized = sanitize_sql_array(["to_tsquery('english', ?)", terms.gsub(/\s/,"+")])
+      Micropost.where("search_vector @@ #{sanitized}")
+  end
+
   def self.from_users_followed_by(user)
     followed_user_ids = "SELECT followed_id FROM relationships
                          WHERE follower_id = :user_id"

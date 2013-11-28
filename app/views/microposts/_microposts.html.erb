@@ -1,0 +1,15 @@
+<% if @microposts.any? %>
+
+	<ul class="microposts">
+		<%= render partial: 'micropost', collection: @microposts %>
+	</ul>
+
+	<%= will_paginate @microposts %>
+
+<% else %>
+
+	<div class="alert alert-info">
+		No microposts matched your query, try again.
+	</div>
+
+<% end %>

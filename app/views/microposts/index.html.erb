@@ -1,0 +1,25 @@
+<% provide(:title, 'All microposts') %>
+<h1>All microposts</h1>
+
+<%= form_tag microposts_path, class: "form-search", method: :get, remote: true do %>
+	<%= text_field_tag :search, params[:search], :placeholder => "Search for:", class: "input-large search-query" %>
+  <%= submit_tag "Search", class: "btn" %>
+<% end %>
+
+<% if @microposts.any? %>
+
+	<ul class="microposts" id="micropost_listing">
+		<%= render partial: 'micropost', collection: @microposts %>
+	</ul>
+
+	<div id="micropost_pagination">
+		<%= will_paginate @microposts %>
+	</div>
+
+<% else %>
+
+	<div class="alert alert-info" id="empty_search">
+		No microposts matched your query, try again.
+	</div>
+
+<% end %>

@@ -1,10 +1,16 @@
 <% provide(:title, 'All users') %>
 <h1>All users</h1>
 
-<%= will_paginate %>
+<% if @users.any? %>
+	<%= will_paginate %>
 
-<ul class="users">
-	<%= render @users %>
-</ul>
+	<ul class="users">
+		<%= render @users %>
+	</ul>
 
-<%= will_paginate %>
+	<%= will_paginate %>
+<% else %>
+	<div class="alert alert-info">
+		There are no users in the database.
+	</div>
+<% end %>

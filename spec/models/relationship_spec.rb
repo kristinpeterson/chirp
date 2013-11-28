@@ -5,6 +5,7 @@ describe Relationship do
   let(:follower) { FactoryGirl.create(:user) }
   let(:followed) { FactoryGirl.create(:user) }
   let(:relationship) { follower.relationships.build(followed_id: followed.id) }
+  after(:all) { User.delete_all }
 
   subject { relationship }
 
