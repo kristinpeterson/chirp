@@ -10,7 +10,6 @@ class MicropostsController < ApplicationController
     else
       @microposts = Micropost.paginate(page: params[:page])
     end
-
     respond_with @microposts
   end
 

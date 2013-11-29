@@ -1,3 +1,2 @@
-$("#micropost_listing").html("<%= escape_javascript(render partial: 'micropost', collection: @microposts).html_safe %>")
-$("#micropost_pagination").html("<%= escape_javascript(will_paginate @microposts) %>")
-$("#empty_search").replaceWith("No microposts matched your query, try again.")
+$("#micropost_listing").html("<%= escape_javascript(render partial: 'microposts') if @microposts.any? %>")
+$("#empty_search").html("<%= escape_javascript(render partial: 'empty_search') unless @microposts.any? %>")

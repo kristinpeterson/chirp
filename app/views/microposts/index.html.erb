@@ -6,20 +6,10 @@
   <%= submit_tag "Search", class: "btn" %>
 <% end %>
 
-<% if @microposts.any? %>
+<div id="micropost_listing">
+	<%= render(partial: 'microposts') if @microposts.any? %>
+</div>
 
-	<ul class="microposts" id="micropost_listing">
-		<%= render partial: 'micropost', collection: @microposts %>
-	</ul>
-
-	<div id="micropost_pagination">
-		<%= will_paginate @microposts %>
-	</div>
-
-<% else %>
-
-	<div class="alert alert-info" id="empty_search">
-		No microposts matched your query, try again.
-	</div>
-
-<% end %>
+<div id="empty_search">
+	<%= render(partial: 'empty_search') unless @microposts.any? %>
+</div>
