@@ -15,8 +15,8 @@ describe "MicropostPages" do
       FactoryGirl.create(:micropost, user: another_user)
     end
 
-    it { should have_selector('title', text: 'All microposts') }
-    it { should have_selector('h1',    text: 'All microposts') }
+    it { should have_selector('title', text: 'microposts') }
+    it { should have_selector('h1',    text: 'Microposts') }
 
     describe "pagination" do
       before { visit microposts_path }
@@ -32,13 +32,13 @@ describe "MicropostPages" do
     describe "clicking delete link as correct user" do
       before { visit microposts_path }
       it "should delete micropost" do
-        expect { click_link "delete" }.to change(Micropost, :count).by(-1)
+        expect { first(".delete").click }.to change(Micropost, :count).by(-1)
       end
     end
 
     describe "as a user" do
       it "should not display delete links for another users microposts" do
-        should_not have_link('delete', href: micropost_path(another_user))
+        should_not have_xpath("//a[@href = 'micropost_path(another_user)']")
       end
 
       it "submitting a DELETE request to another users destroy action" do
@@ -46,6 +46,37 @@ describe "MicropostPages" do
         response.should redirect_to(root_url)
       end
     end
+    
+    describe "search" do
+
+      let(:existing_micropost) { user.microposts.first.content }
+
+      it { should have_field("search") }
+      it { should have_button("Search") }
+
+      describe "for existing micropost should return results" do
+        
+        before do
+          visit microposts_path
+          fill_in "search",   with: existing_micropost
+          click_button "Search"
+        end
+        
+        it { should have_selector('li', text: existing_micropost) }
+      end
+
+      describe "for micropost that doesn't exist should not return results" do
+        
+        before do
+          visit microposts_path
+          fill_in "search",   with: "does not exist"
+          click_button "Search"
+        end
+        
+        it { should have_selector('span', text: "No microposts matched your query, try again.") }
+      end
+    end
+
   end
 
   describe "micropost creation" do
@@ -82,7 +113,7 @@ describe "MicropostPages" do
       before { visit root_path }
 
       it "should delete a micropost" do
-        expect { click_link "delete" }.to change(Micropost, :count).by(-1)
+        expect { first(".delete").click }.to change(Micropost, :count).by(-1)
       end
     end
 

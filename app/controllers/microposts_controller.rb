@@ -15,6 +15,7 @@ class MicropostsController < ApplicationController
 
   def create
   	@micropost = current_user.microposts.build(params[:micropost])
+    @charcount = params[:charcount]
     if @micropost.save
       flash[:success] = "Micropost created!"
       redirect_to root_url

@@ -1,10 +1,7 @@
-<% provide(:title, 'All microposts') %>
-<h1>All microposts</h1>
+<% provide(:title, 'microposts') %>
+<h1>Microposts</h1>
 
-<%= form_tag microposts_path, class: "form-search", method: :get, remote: true do %>
-	<%= text_field_tag :search, params[:search], :placeholder => "Search for:", class: "input-large search-query" %>
-  <%= submit_tag "Search", class: "btn" %>
-<% end %>
+<%= render 'shared/search_form', :path => microposts_path %>
 
 <div id="micropost_listing">
 	<%= render(partial: 'microposts') if @microposts.any? %>

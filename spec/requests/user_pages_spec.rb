@@ -13,8 +13,8 @@ describe "User pages" do
       visit users_path
     end
 
-    it { should have_selector('title', text: 'All users') }
-    it { should have_selector('h1',    text: 'All users') }
+    it { should have_selector('title', text: 'users') }
+    it { should have_selector('h1',    text: 'users') }
 
     describe "pagination" do
 
@@ -32,7 +32,7 @@ describe "User pages" do
 
     describe "delete links" do
 
-      it { should_not have_link('delete') }
+      it { should_not have_xpath("//a[@href = 'user_path(User.first)']") }
 
       describe "as an admin user" do
         let(:admin) { FactoryGirl.create(:admin) }
@@ -41,15 +41,15 @@ describe "User pages" do
           visit users_path
         end
 
-        it { should have_link('delete', href: user_path(User.first)) }
-        it { should_not have_link('delete', href: user_path(admin)) }
+        it { should have_css('img', :class => "icon-trash") }
+        it { should_not have_xpath("//a[@href = 'user_path(admin)']") }
 
         it "should not be able to delete themselves" do
           expect { delete user_path(admin) }.not_to change(User, :count)
         end
 
         it "should be able to delete another user" do
-          expect { click_link('delete') }.to change(User, :count).by(-1)
+          expect { first(".delete").click }.to change(User, :count).by(-1)
         end
       end
     end
@@ -59,7 +59,7 @@ describe "User pages" do
     before { visit signup_path }
 
     it { should have_heading('Sign up') }
-    it { should have_title('Sign up') }
+    it { should have_title('sign up') }
   end
 
   describe "profile page" do
@@ -72,7 +72,7 @@ describe "User pages" do
     end
 
     it { should have_heading(user.name) }
-    it { should have_title(user.name) }
+    it { should have_title(user.name.downcase) }
 
     describe "microposts" do
       it { should have_content(m1.content) }
@@ -110,7 +110,7 @@ describe "User pages" do
     describe "after submission" do
       before { click_button submit }
 
-      it { should have_title('Sign up') }
+      it { should have_title('sign up') }
       it { should have_content('error') }
     end
 
@@ -125,8 +125,8 @@ describe "User pages" do
         before { click_button submit }
         let(:user) { User.find_by_email('user@example.com') }
 
-        it { should have_title(user.name) }
-        it { should have_success_message('Welcome') }
+        it { should have_title(user.name.downcase) }
+        it { should have_success_message('welcome') }
         it { should have_link('Sign out') }
       end
     end
@@ -142,7 +142,7 @@ describe "User pages" do
 
     describe "page" do
       it { should have_selector('h1',    text: "Update your profile") }
-      it { should have_selector('title', text: "Edit user") }
+      it { should have_selector('title', text: "edit user") }
       it { should have_link('change', href: 'http://gravatar.com/emails') }
     end
 
@@ -157,7 +157,7 @@ describe "User pages" do
         click_button "Save changes"
       end
 
-      it { should have_selector('title', text: new_name) }
+      it { should have_selector('title', text: new_name.downcase) }
       it { should have_selector('div.alert.alert-success') }
       it { should have_link('Sign out', href: signout_path) }
       specify { user.reload.name.should  == new_name }
@@ -176,7 +176,7 @@ describe "User pages" do
         visit following_user_path(user)
       end
 
-      it { should have_selector('title', text: full_title('Following')) }
+      it { should have_selector('title', text: full_title('following')) }
       it { should have_selector('h3', text: 'Following') }
       it { should have_link(other_user.name, href: user_path(other_user)) }
     end
@@ -187,7 +187,7 @@ describe "User pages" do
         visit followers_user_path(other_user)
       end
 
-      it { should have_selector('title', text: full_title('Followers')) }
+      it { should have_selector('title', text: full_title('followers')) }
       it { should have_selector('h3', text: 'Followers') }
       it { should have_link(user.name, href: user_path(user)) }
     end
