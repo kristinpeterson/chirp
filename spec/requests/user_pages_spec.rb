@@ -53,6 +53,34 @@ describe "User pages" do
         end
       end
     end
+
+    describe "search" do
+
+      it { should have_field("search") }
+      it { should have_button("Search") }
+
+      describe "for existing user should return results" do
+        
+        before do
+          visit users_path
+          fill_in "search",   with: user.name.split[0,5]
+          click_button "Search"
+        end
+        
+        it { should have_selector('li', text: user.name) }
+      end
+
+      describe "for user that doesn't exist should not return results" do
+        
+        before do
+          visit users_path
+          fill_in "search",   with: "does not exist"
+          click_button "Search"
+        end
+        
+        it { should have_selector('span', text: "Your search returned no results, try again.") }
+      end
+    end
   end
 
   describe "signup page" do

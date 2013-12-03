@@ -1,0 +1,2 @@
+$("#users_listing").html("<%= escape_javascript(render partial: 'users') if @users.any? %>")
+$("#empty_search").html("<%= escape_javascript(render partial: 'shared/empty_search') unless @users.any? %>")

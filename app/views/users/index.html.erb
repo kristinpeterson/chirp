@@ -1,16 +1,12 @@
 <% provide(:title, 'users') %>
 <h1>users</h1>
 
-<% if @users.any? %>
-	<%= will_paginate %>
+<%= render 'shared/search_form', :path => users_path %>
 
-	<ul class="users">
-		<%= render @users %>
-	</ul>
+<div id="users_listing">
+	<%= render(partial: 'users') if @users.any? %>
+</div>
 
-	<%= will_paginate %>
-<% else %>
-	<div class="alert alert-info">
-		There are no users in the database.
-	</div>
-<% end %>
+<div id="empty_search">
+	<%= render(partial: 'shared/empty_search') unless @users.any? %>
+</div>

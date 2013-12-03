@@ -46,6 +46,11 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def self.search(terms = "")
+      sanitized = sanitize_sql_array(["to_tsquery('english', ?)", terms.gsub(/\s/,"+")])
+      User.where("search_vector @@ #{sanitized}")
+  end
+
 	private
 
 		def create_remember_token

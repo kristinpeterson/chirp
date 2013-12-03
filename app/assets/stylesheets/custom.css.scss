@@ -11,9 +11,6 @@ $grayMediumLight: #eaeaea;
   box-sizing: border-box;
 }
 
-/* bootstrap override */
-
-
 /* universal */
 
 html {
@@ -35,11 +32,16 @@ textarea {
   }
 }
 
+[class^="icon-"],
+[class*=" icon-"] {
+  margin-left: 5px;
+  vertical-align: sub;
+}
+
 /* typography */
 
 body {
   font-family: 'Titillium Web', sans-serif;
-  text-transform: lowercase;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -230,6 +232,9 @@ input {
   li {
     padding: 10px 0;
     border-top: 1px solid #e8e8e8;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
   }
 }
 .content {
@@ -264,7 +269,8 @@ aside {
 /* search */
 .search_error {
   border-top: 1px solid #e8e8e8;
-  padding: 20px 0px 0px 0px;
+  border-bottom: 1px solid $grayLighter;
+  padding: 20px 0px 20px 0px;
 }
 
  /* Sticky footer styles

@@ -73,7 +73,7 @@ describe "MicropostPages" do
           click_button "Search"
         end
         
-        it { should have_selector('span', text: "No microposts matched your query, try again.") }
+        it { should have_selector('span', text: "Your search returned no results, try again.") }
       end
     end
 

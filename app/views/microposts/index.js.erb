@@ -1,2 +1,2 @@
 $("#micropost_listing").html("<%= escape_javascript(render partial: 'microposts') if @microposts.any? %>")
-$("#empty_search").html("<%= escape_javascript(render partial: 'empty_search') unless @microposts.any? %>")
+$("#empty_search").html("<%= escape_javascript(render partial: 'shared/empty_search') unless @microposts.any? %>")

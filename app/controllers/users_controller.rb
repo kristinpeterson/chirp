@@ -4,8 +4,15 @@ class UsersController < ApplicationController
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
 
+  respond_to :html, :js
+
   def index
-    @users = User.paginate(page: params[:page])
+    if params.has_key?("search")
+      @users = User.search(params[:search]).paginate(page: params[:page])
+    else
+      @users = User.paginate(page: params[:page])
+    end
+    respond_with @users
   end
 
   def show

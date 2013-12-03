@@ -36,9 +36,17 @@ describe User do
   it { should respond_to(:unfollow!) }
   it { should respond_to(:reverse_relationships) }
   it { should respond_to(:followers) }
+  it { should respond_to(:search_vector) }
 
   it { should be_valid }
   it { should_not be_admin}
+
+  describe "accessible attributes" do
+    it { should_not allow_mass_assignment_of(:password_digest) }
+    it { should_not allow_mass_assignment_of(:remember_token) }
+    it { should_not allow_mass_assignment_of(:admin) }
+    it { should_not allow_mass_assignment_of(:search_vector) }  
+  end
 
   describe "with admin attribute set to 'true'" do
     before do
@@ -46,10 +54,6 @@ describe User do
       @user.toggle!(:admin)
     end
     it { should be_admin }
-  end
-
-  describe "admin attribute" do
-    it { should_not allow_mass_assignment_of :admin }
   end
 
   # Name tests
