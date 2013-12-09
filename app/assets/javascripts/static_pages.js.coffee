@@ -14,7 +14,7 @@ root.countChars = (textarea) ->
   charCount = 140 - len
   $("#char_count").text charCount
   $("#charcount").val charCount
-  if charCount <= 10 and charCount > 0
+  if charCount <= 10 and charCount >= 0
     $("#char_count").removeClass "muted"
     $("#char_count").removeClass "text-error"
     $("#char_count").addClass "text-warning"
