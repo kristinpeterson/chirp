@@ -5,7 +5,7 @@ class MicropostsController < ApplicationController
   respond_to :html, :js
 
   def index
-    if params.has_key?("search")
+    if params[:search].present?
       @microposts = Micropost.search(params[:search]).paginate(page: params[:page])
     else
       @microposts = Micropost.paginate(page: params[:page])
